@@ -12,9 +12,4 @@ public class SecurityConstraints {
     public static final String LOGIN_URL = "/login";
     public static final String STATUS_URL = "/status";
 
-
-
-
-
-
 }
