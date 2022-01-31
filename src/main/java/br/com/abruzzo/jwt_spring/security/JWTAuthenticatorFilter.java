@@ -1,7 +1,9 @@
 package br.com.abruzzo.jwt_spring.security;
 
+import br.com.abruzzo.jwt_spring.dto.UserDTO;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -34,11 +37,21 @@ public class JWTAuthenticatorFilter extends UsernamePasswordAuthenticationFilter
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-        UsernamePasswordAuthenticationToken authRequest = getAuthRequest(request);
-        setDetails(request, authRequest);
+        UserDTO userDTO = null;
+        try {
+            userDTO = new ObjectMapper().readValue(request.getInputStream(), UserDTO.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return this.getAuthenticationManager()
-                .authenticate(authRequest);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                userDTO.getUsername(),
+                userDTO.getPassword(),
+                new ArrayList<>()
+        );
+
+        return this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
     }
 
     private UsernamePasswordAuthenticationToken getAuthRequest(HttpServletRequest request) {
