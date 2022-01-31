@@ -33,7 +33,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         String header = request.getHeader(SecurityConstraints.HEADER_TOKEN);
 
-        if(header == null || header.startsWith(SecurityConstraints.TOKEN_PREFIX)) {
+        if(header == null || !header.startsWith(SecurityConstraints.TOKEN_PREFIX)) {
             try{
                 throw new AusenciaTokenAutenticacao("Não foi fornecido token autenticação no request", this.logger);
             }catch(AusenciaTokenAutenticacao exception){
