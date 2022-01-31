@@ -1,5 +1,6 @@
 package br.com.abruzzo.jwt_spring.security;
 
+import br.com.abruzzo.jwt_spring.exceptions.AusenciaTokenAutenticacao;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.security.authentication.AuthenticationManager;

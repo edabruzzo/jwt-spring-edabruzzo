@@ -1,4 +1,4 @@
-package br.com.abruzzo.jwt_spring.security;
+package br.com.abruzzo.jwt_spring.exceptions;
 
 
 import org.apache.commons.logging.Log;
