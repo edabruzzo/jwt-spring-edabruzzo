@@ -1,4 +1,4 @@
-package br.com.abruzzo.jwt_spring.controller;
+package br.com.abruzzo.jwt_spring.security;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
